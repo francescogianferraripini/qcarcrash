@@ -55,7 +55,9 @@ model3 = {
     'transforms':get_transforms()
 }
 
-qcrashModelDefs = [model1,model2,model3]
+#qcrashModelDefs = [model1,model2,model3]
+qcrashModelDefs = [model1]
+
 
 def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
     
@@ -63,12 +65,13 @@ def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
         "/{}_1.jpg".format(c)
         for c in modelDefition['categories']
         ]
+    print(fnames)
     db=ImageDataBunch.from_name_re(
         imagesPath,
         fnames,
         r"/([^/]+)_\d+.jpg$",
         ds_tfms=modelDefition['transforms'],
-        size=modelDefition['imageSize'],
+        size=modelDefition['imageSize']
     ).normalize(imagenet_stats)
     learner = create_cnn(db, modelDefition['modelType'])
     learner.model.load_state_dict(
@@ -124,10 +127,15 @@ async def classify_url(request):
 
 
 def predict_image_from_bytes(bytes):
+    
+    
     img = open_image(BytesIO(bytes))
-    pred_class,pred_idx,outputs = qcrashLearners[0].predict(img)
+    print(img.size)
+    pred,_,_=qcrashLearners[0].predict(img)
+    pred_class_0 = [pred]
+
     return JSONResponse({
-        "predicted_class": pred_class
+        qcrashModelDefs[0]['name']: pred_class_0
     })
 
 
@@ -156,5 +164,6 @@ def redirect_to_homepage(request):
 if __name__ == "__main__":
     if "serve" in sys.argv:
         uvicorn.run(app, host="0.0.0.0", port=8008)
+
 
 
