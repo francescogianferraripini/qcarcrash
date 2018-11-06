@@ -7,6 +7,7 @@ from fastai.vision import (
     get_transforms,
     models,
     imagenet_stats
+    
 )
 import torch
 from pathlib import Path
@@ -15,6 +16,10 @@ import sys
 import uvicorn
 import aiohttp
 import asyncio
+import io
+import uuid
+import os
+import time
 
 
 async def get_bytes(url):
@@ -55,19 +60,24 @@ model3 = {
     'transforms':get_transforms()
 }
 
-#qcrashModelDefs = [model1,model2,model3]
-qcrashModelDefs = [model1]
+qcrashModelDefs = [model1,model2,model3]
+
+tempPath = Path("/tmp")
+#qcrashModelDefs = [model1]
 
 
 def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
     
+    modelDir=imagesPath / modelDefition['name']
+    modelDir.mkdir
+
     fnames = [
         "/{}_1.jpg".format(c)
         for c in modelDefition['categories']
         ]
     print(fnames)
     db=ImageDataBunch.from_name_re(
-        imagesPath,
+        modelDir,
         fnames,
         r"/([^/]+)_\d+.jpg$",
         ds_tfms=modelDefition['transforms'],
@@ -77,9 +87,10 @@ def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
     learner.model.load_state_dict(
         torch.load(modelDefition['weights'], map_location="cpu")
     )
+    
     return learner
 
-qcrashLearners = [generateLearner(md) for md in qcrashModelDefs]
+
 
 
 
@@ -128,16 +139,50 @@ async def classify_url(request):
 
 def predict_image_from_bytes(bytes):
     
+    tempFilePath = tempPath / (str(uuid.uuid1()) + '.jpg')
+    tempFile = io.open(tempFilePath,'wb')
+    tempFile.write(bytes)
+    tempFile.close()
+
+    img = open_image(tempFilePath)
+    #img = open_image(BytesIO(bytes))
     
-    img = open_image(BytesIO(bytes))
-    print(img.size)
     pred,_,_=qcrashLearners[0].predict(img)
     pred_class_0 = [pred]
+    pred,_,_=qcrashLearners[1].predict(img)
+    pred_class_1 = [pred]
+    pred,_,_=qcrashLearners[2].predict(img)
+    pred_class_2 = [pred]
+
+    os.remove(tempFilePath)
 
     return JSONResponse({
-        qcrashModelDefs[0]['name']: pred_class_0
+        qcrashModelDefs[0]['name']: pred_class_0,
+        qcrashModelDefs[1]['name']: pred_class_1,
+        qcrashModelDefs[2]['name']: pred_class_2
     })
 
+def predict_image(path):
+    
+    
+
+    img = open_image(path)
+    #img = open_image(BytesIO(bytes))
+    
+    pred,_,_=qcrashLearners[0].predict(img)
+    pred_class_0 = [pred]
+    pred,_,_=qcrashLearners[1].predict(img)
+    pred_class_1 = [pred]
+    pred,_,_=qcrashLearners[2].predict(img)
+    pred_class_2 = [pred]
+
+    
+
+    return JSONResponse({
+        qcrashModelDefs[0]['name']: pred_class_0,
+        qcrashModelDefs[1]['name']: pred_class_1,
+        qcrashModelDefs[2]['name']: pred_class_2
+    })
 
 @app.route("/")
 def form(request):
@@ -163,7 +208,11 @@ def redirect_to_homepage(request):
 
 if __name__ == "__main__":
     if "serve" in sys.argv:
+        qcrashLearners = [generateLearner(md) for md in qcrashModelDefs]
         uvicorn.run(app, host="0.0.0.0", port=8008)
+    elif "test" in sys.argv:
+        qcrashLearners = [generateLearner(md) for md in qcrashModelDefs]
+        print(predict_image(Path('./6b7c64a6-e1e6-11e8-a965-99eec267d82d.jpg')))
 
 
 
