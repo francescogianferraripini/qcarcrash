@@ -1,0 +1,122 @@
+
+(fastai-cpu) gianferrarif@fgplaptop:~/Dev/qcarcrash$ python qcarcrash.py test
+['/damage_1.jpg', '/whole_1.jpg']
+/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py:95: UserWarning: Your generator is empty.
+  warn("Your generator is empty.")
+Traceback (most recent call last):
+  File "qcarcrash.py", line 230, in <module>
+    print(str(predict_image(Path('./6b7c64a6-e1e6-11e8-a965-99eec267d82d.jpg'))))
+  File "qcarcrash.py", line 185, in predict_image
+    pred,_,_=qcrashLearners[0].predict(img)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/learner.py", line 50, in predict
+    res = self.pred_batch()[0]
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 213, in pred_batch
+    preds,_ = self.get_preds(is_test, with_loss=False, n_batch=1, pbar=pbar)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 206, in get_preds
+    activ=_loss_func2activ(self.loss_func), loss_func=lf, n_batch=n_batch, pbar=pbar)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 38, in get_preds
+    zip(*validate(model, dl, cb_handler=cb_handler, pbar=pbar, average=False, n_batch=n_batch))]
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 49, in validate
+    for xb,yb in progress_bar(dl, parent=pbar, leave=(pbar is not None)):
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 63, in __iter__
+    self.update(0)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 78, in update
+    self.update_bar(0)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 96, in update_bar
+    self.on_update(0, '100% [0/0]')
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 258, in on_update
+    filled_len = int(self.length * val // self.total)
+ZeroDivisionError: integer division or modulo by zero
+(fastai-cpu) gianferrarif@fgplaptop:~/Dev/qcarcrash$ python qcarcrash.py test
+['/damage_1.jpg', '/whole_1.jpg']
+/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py:95: UserWarning: Your generator is empty.
+  warn("Your generator is empty.")
+Traceback (most recent call last):
+  File "qcarcrash.py", line 230, in <module>
+    print(str(predict_image(Path('./6b7c64a6-e1e6-11e8-a965-99eec267d82d.jpg'))))
+  File "qcarcrash.py", line 185, in predict_image
+    pred,_,_=qcrashLearners[0].predict(img)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/learner.py", line 50, in predict
+    res = self.pred_batch()[0]
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 213, in pred_batch
+    preds,_ = self.get_preds(is_test, with_loss=False, n_batch=1, pbar=pbar)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 206, in get_preds
+    activ=_loss_func2activ(self.loss_func), loss_func=lf, n_batch=n_batch, pbar=pbar)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 38, in get_preds
+    zip(*validate(model, dl, cb_handler=cb_handler, pbar=pbar, average=False, n_batch=n_batch))]
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 49, in validate
+    for xb,yb in progress_bar(dl, parent=pbar, leave=(pbar is not None)):
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 63, in __iter__
+    self.update(0)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 78, in update
+    self.update_bar(0)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 96, in update_bar
+    self.on_update(0, '100% [0/0]')
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 258, in on_update
+    filled_len = int(self.length * val // self.total)
+ZeroDivisionError: integer division or modulo by zero
+(fastai-cpu) gianferrarif@fgplaptop:~/Dev/qcarcrash$ python qcarcrash.py test
+['/damage_1.jpg', '/whole_1.jpg']
+Traceback (most recent call last):
+  File "qcarcrash.py", line 228, in <module>
+    qcrashLearners = [generateLearner(md) for md in qcrashModelDefs]
+  File "qcarcrash.py", line 228, in <listcomp>
+    qcrashLearners = [generateLearner(md) for md in qcrashModelDefs]
+  File "qcarcrash.py", line 93, in generateLearner
+    size=modelDefition['imageSize'],bs=32
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/data.py", line 349, in from_name_re
+    return cls.from_name_func(path, fnames, _get_label, valid_pct=valid_pct, test=test, **kwargs)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/data.py", line 343, in from_name_func
+    return cls.from_lists(path, fnames, labels, valid_pct=valid_pct, test=test, **kwargs)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/data.py", line 338, in from_lists
+    return cls.create(*datasets, path=path, **kwargs)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/data.py", line 285, in create
+    zip(datasets, (bs,bs*2,bs*2), (True,False,False))]
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/data.py", line 284, in <listcomp>
+    dls = [DataLoader(*o, num_workers=num_workers) for o in
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 802, in __init__
+    sampler = RandomSampler(dataset)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/torch/utils/data/sampler.py", line 64, in __init__
+    "value, but got num_samples={}".format(self.num_samples))
+ValueError: num_samples should be a positive integeral value, but got num_samples=0
+(fastai-cpu) gianferrarif@fgplaptop:~/Dev/qcarcrash$ python qcarcrash.py test
+['/damage_1.jpg', '/whole_1.jpg']
+/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py:95: UserWarning: Your generator is empty.
+  warn("Your generator is empty.")
+Traceback (most recent call last):
+  File "qcarcrash.py", line 230, in <module>
+    print(str(predict_image(Path('./6b7c64a6-e1e6-11e8-a965-99eec267d82d.jpg'))))
+  File "qcarcrash.py", line 185, in predict_image
+    pred,_,_=qcrashLearners[0].predict(img)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/vision/learner.py", line 50, in predict
+    res = self.pred_batch()[0]
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 213, in pred_batch
+    preds,_ = self.get_preds(is_test, with_loss=False, n_batch=1, pbar=pbar)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 206, in get_preds
+    activ=_loss_func2activ(self.loss_func), loss_func=lf, n_batch=n_batch, pbar=pbar)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 38, in get_preds
+    zip(*validate(model, dl, cb_handler=cb_handler, pbar=pbar, average=False, n_batch=n_batch))]
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastai/basic_train.py", line 49, in validate
+    for xb,yb in progress_bar(dl, parent=pbar, leave=(pbar is not None)):
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 63, in __iter__
+    self.update(0)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 78, in update
+    self.update_bar(0)
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 96, in update_bar
+    self.on_update(0, '100% [0/0]')
+  File "/home/gianferrarif/anaconda3/envs/fastai-cpu/lib/python3.6/site-packages/fastprogress/fastprogress.py", line 258, in on_update
+    filled_len = int(self.length * val // self.total)
+ZeroDivisionError: integer division or modulo by zero
+(fastai-cpu) gianferrarif@fgplaptop:~/Dev/qcarcrash$ python qcarcrash.py test
+['/damage_1.jpg', '/whole_1.jpg']
+<starlette.responses.JSONResponse object at 0x7fa1ac1478d0>
+<starlette.responses.JSONResponse object at 0x7fa1afd3bc18>
+<starlette.responses.JSONResponse object at 0x7fa1ac1478d0>
+<starlette.responses.JSONResponse object at 0x7fa1afd3bc18>
+<starlette.responses.JSONResponse object at 0x7fa1ac1478d0>
+<starlette.responses.JSONResponse object at 0x7fa1afd3bc18>
+<starlette.responses.JSONResponse object at 0x7fa1ac1478d0>
+<starlette.responses.JSONResponse object at 0x7fa1afd3bc18>
+<starlette.responses.JSONResponse object at 0x7fa1ac1478d0>
+1.0.19
+(fastai-cpu) gianferrarif@fgplaptop:~/Dev/qcarcrash$
