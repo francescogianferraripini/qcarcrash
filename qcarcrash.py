@@ -79,7 +79,7 @@ def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
     db=ImageDataBunch.single_from_classes(
         modelDir,
         modelDefition['categories'],
-        tfms=ymodelDefition['transforms'],
+        tfms=modelDefition['transforms'],
         size=modelDefition['imageSize']
     ).normalize(imagenet_stats)
     learner = create_cnn(db, modelDefition['modelType'])
