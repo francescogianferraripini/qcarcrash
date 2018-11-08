@@ -42,7 +42,7 @@ model1 = {
     'transforms':get_transforms()
 }
 
-model2 = {
+""" model2 = {
     'name':'damageLocation',
     'categories':['00-front', '01-rear', '02-side'],
     'weights':'data2a-frozen10epochs-unfrozen10epochs.pth',
@@ -59,8 +59,8 @@ model3 = {
     'imageSize':299,
     'transforms':get_transforms()
 }
-
-qcrashModelDefs = [model1,model2,model3]
+ """
+qcrashModelDefs = [model1]
 
 tempPath = Path("/tmp")
 #qcrashModelDefs = [model1]
@@ -76,11 +76,10 @@ def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
         for c in modelDefition['categories']
         ]
     print(fnames)
-    db=ImageDataBunch.from_name_re(
+    db=ImageDataBunch.single_from_classes(
         modelDir,
-        fnames,
-        r"/([^/]+)_\d+.jpg$",
-        ds_tfms=modelDefition['transforms'],
+        modelDefition['categories'],
+        tfms=modelDefition['transforms'],
         size=modelDefition['imageSize']
     ).normalize(imagenet_stats)
     learner = create_cnn(db, modelDefition['modelType'])
@@ -171,17 +170,12 @@ def predict_image(path):
     
     pred,_,_=qcrashLearners[0].predict(img)
     pred_class_0 = [pred]
-    pred,_,_=qcrashLearners[1].predict(img)
-    pred_class_1 = [pred]
-    pred,_,_=qcrashLearners[2].predict(img)
-    pred_class_2 = [pred]
+
 
     
 
     return JSONResponse({
-        qcrashModelDefs[0]['name']: pred_class_0,
-        qcrashModelDefs[1]['name']: pred_class_1,
-        qcrashModelDefs[2]['name']: pred_class_2
+        qcrashModelDefs[0]['name']: pred_class_0
     })
 
 @app.route("/")
