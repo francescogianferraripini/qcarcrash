@@ -42,7 +42,7 @@ model1 = {
     'transforms':get_transforms()
 }
 
-""" model2 = {
+model2 = {
     'name':'damageLocation',
     'categories':['00-front', '01-rear', '02-side'],
     'weights':'data2a-frozen10epochs-unfrozen10epochs.pth',
@@ -59,8 +59,8 @@ model3 = {
     'imageSize':299,
     'transforms':get_transforms()
 }
- """
-qcrashModelDefs = [model1]
+
+qcrashModelDefs = [model1,model2,model3]
 
 tempPath = Path("/tmp")
 #qcrashModelDefs = [model1]
@@ -71,11 +71,7 @@ def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
     modelDir=imagesPath / modelDefition['name']
     modelDir.mkdir
 
-    fnames = [
-        "/{}_1.jpg".format(c)
-        for c in modelDefition['categories']
-        ]
-    print(fnames)
+    
     db=ImageDataBunch.single_from_classes(
         modelDir,
         modelDefition['categories'],
@@ -91,36 +87,6 @@ def generateLearner(modelDefition:dict, imagesPath:Path = Path("/tmp")):
 
 
 
-
-
-""" #Model Categories
-cat_fnames_l1 = [
-    "/{}_1.jpg".format(c)
-    for c in ['00-damage', '01-whole']
-    ]
-
-cat_fnames_l2 = [
-    "/{}_1.jpg".format(c)
-    for c in ['00-front', '01-rear', '02-side']
-    ]
-
-cat_fnames_l3 = [
-    "/{}_1.jpg".format(c)
-    for c in ['01-minor', '02-moderate', '03-severe']
-    ]    
-
-
-cat_data_l1 = ImageDataBunch.from_name_re(
-    cat_images_path,
-    cat_fnames_l1,
-    r"/([^/]+)_\d+.jpg$",
-    ds_tfms=get_transforms(),
-    size=299,
-).normalize(imagenet_stats)
-cat_learner_l1 = create_cnn(cat_data_l1, models.resnet50)
-cat_learner_l1.model.load_state_dict(
-    torch.load("stage-1-50.pth", map_location="cpu")
-) """
 
 
 @app.route("/upload", methods=["POST"])
@@ -170,13 +136,18 @@ def predict_image(path):
     
     pred,_,_=qcrashLearners[0].predict(img)
     pred_class_0 = [pred]
+    pred,_,_=qcrashLearners[1].predict(img)
+    pred_class_1 = [pred]
+    pred,_,_=qcrashLearners[2].predict(img)
+    pred_class_2 = [pred]
 
 
     
-
-    return JSONResponse({
-        qcrashModelDefs[0]['name']: pred_class_0
-    })
+    return ({
+            qcrashModelDefs[0]['name']: pred_class_0,
+            qcrashModelDefs[1]['name']: pred_class_1,
+            qcrashModelDefs[2]['name']: pred_class_2
+        })
 
 @app.route("/")
 def form(request):
