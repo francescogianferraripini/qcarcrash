@@ -3,7 +3,7 @@
         "name":"isDamaged",
         "classes":["00-damage", "01-whole"],
         "modelUrl":"https://github.com/francescogianferraripini/qcarcrash/raw/master/data1a-frozen10epochs.pth",
-        "modelFileName":"data1a-frozen10epochs.pth",
+        "modelFileName":"data1a-frozen10epochs",
         "modelType":"resnet50",
         "imageSize":299
     },    
@@ -11,7 +11,7 @@
         "name":"damageLocation",
         "classes":["00-front", "01-rear", "02-side"],
         "modelUrl":"https://github.com/francescogianferraripini/qcarcrash/raw/master/data2a-frozen10epochs-unfrozen10epochs.pth",
-        "modelFileName":"data2a-frozen10epochs-unfrozen10epochs.pth",
+        "modelFileName":"data2a-frozen10epochs-unfrozen10epochs",
         "modelType":"resnet50",
         "imageSize":299
     },    
@@ -19,7 +19,7 @@
         "name":"damageSeverity",
         "classes":["01-minor", "02-moderate", "03-severe"],
         "modelUrl":"https://github.com/francescogianferraripini/qcarcrash/raw/master/data3a-frozen10epochs-unfrozen10epochs.pth",
-        "modelFileName":"data3a-frozen10epochs-unfrozen10epochs.pth",
+        "modelFileName":"data3a-frozen10epochs-unfrozen10epochs",
         "modelType":"resnet50",
         "imageSize":299
     }
